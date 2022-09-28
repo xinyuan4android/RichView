@@ -8,5 +8,5 @@ import android.view.View;
  * @time 2022/9/25 15:44
  */
 public interface IBaseSpanFunction {
-    void onFunctionClick(View view);
+    void onFunctionClick(View clickView, View richView, int startIndex, int endIndex);
 }

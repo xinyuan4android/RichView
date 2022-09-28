@@ -8,10 +8,21 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.pcitc.richtext.sample.function.AbsoluteSizeFunction;
+import com.pcitc.richtext.sample.function.BackgroundColorFunction;
+import com.pcitc.richtext.sample.function.BaseSpanFunction;
+import com.pcitc.richtext.sample.function.ClickableFunction;
+import com.pcitc.richtext.sample.function.ForegroundColorFunction;
+import com.pcitc.richtext.sample.function.UnderLineSpanFunction;
+import com.pcitc.richtext.sample.span.MyClickableSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +30,10 @@ import java.util.List;
 /**
  * {@docRoot}
  */
-public class MainActivity extends AppCompatActivity implements MyFunctionListAdapter.MyOnItemClickListener {
+public class MainActivity extends AppCompatActivity implements MyFunctionListAdapter.MyOnItemClickListener, MyClickableSpan.OnClickableListener {
     private RecyclerView recyclerView;
     private EditText editText;
+    private TextView tvShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +41,24 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
         editText = findViewById(R.id.editText);
+        tvShow = findViewById(R.id.tvShow);
         initRecyclerView();
         initData();
+        editText.setMovementMethod(LinkMovementMethod.getInstance());
+        tvShow.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void initData() {
-        dataSource.add("字体大小");
-        dataSource.add("字体颜色");
-        dataSource.add("下划线");
+        dataSource.add(new UnderLineSpanFunction());
+        dataSource.add(new AbsoluteSizeFunction());
+        dataSource.add(new ForegroundColorFunction());
+        dataSource.add(new BackgroundColorFunction());
+        dataSource.add(new ClickableFunction(this));
         adapter.notifyDataSetChanged();
     }
 
     private MyFunctionListAdapter adapter;
-    private List<String> dataSource = new ArrayList<>();
+    private List<BaseSpanFunction> dataSource = new ArrayList<>();
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
@@ -61,10 +78,15 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
 
     @Override
     public void onFunctionItemClick(View view, int position) {
-        UnderlineSpan underlineSpan = new UnderlineSpan();
-        SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
-        sb.setSpan(underlineSpan, 2, 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        editText.setText(sb);
-        editText.setSelection(2);
+        int selectionStart = editText.getSelectionStart();
+        int selectionEnd = editText.getSelectionEnd();
+        dataSource.get(position).onFunctionClick(view, editText, selectionStart, selectionEnd);
+        editText.setSelection(selectionEnd);
+        tvShow.setText(editText.getText());
+    }
+
+    @Override
+    public void onClickableViewClick(View view, String clickString) {
+        Toast.makeText(this, "clickString : " + clickString, Toast.LENGTH_SHORT).show();
     }
 }

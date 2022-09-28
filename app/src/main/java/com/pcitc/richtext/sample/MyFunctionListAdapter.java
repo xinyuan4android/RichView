@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.pcitc.richtext.sample.function.BaseSpanFunction;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ import java.util.List;
  * @time 2022/9/25 14:56
  */
 public class MyFunctionListAdapter extends RecyclerView.Adapter<MyFunctionListAdapter.ViewHolder> {
-    private final List<String> dataSource;
+    private final List<BaseSpanFunction> dataSource;
     private final MyOnItemClickListener onItemClickListener;
 
-    public MyFunctionListAdapter(List<String> dataSource, MyOnItemClickListener onItemClickListener) {
+    public MyFunctionListAdapter(List<BaseSpanFunction> dataSource, MyOnItemClickListener onItemClickListener) {
         this.dataSource = dataSource;
         this.onItemClickListener = onItemClickListener;
     }
@@ -35,8 +36,8 @@ public class MyFunctionListAdapter extends RecyclerView.Adapter<MyFunctionListAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String itemBean = dataSource.get(position);
-        holder.tvFunctionName.setText(itemBean);
+        BaseSpanFunction itemBean = dataSource.get(position);
+        holder.tvFunctionName.setText(itemBean.getTitleResId());
     }
 
     @Override

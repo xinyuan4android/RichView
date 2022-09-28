@@ -6,9 +6,14 @@
         <entry key="..\:/ASWorkspace/work/RichText/app/src/main/res/layout/activity_main.xml" value="0.34601449275362317" />
         <entry key="..\:/ASWorkspace/work/RichText/app/src/main/res/layout/item_function_list.xml" value="0.34601449275362317" />
         <entry key="..\:/ASWorkspace/work/RichText/app/src/main/res/layout/item_popup_window_list.xml" value="0.34601449275362317" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.163" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/item_function_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/item_popup_window_list.xml" value="0.19610507246376813" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

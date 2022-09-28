@@ -1,12 +1,16 @@
 package com.pcitc.richtext.sample.function;
 
-import android.content.Context;
-import android.view.PointerIcon;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.pcitc.richtext.sample.R;
+import com.pcitc.richtext.sample.Utils;
 import com.pcitc.richtext.sample.dialog.ListPopupWindowAdapter;
 import com.pcitc.richtext.sample.dialog.MyListPopupWindow;
+import com.pcitc.richtext.sample.span.MyAddUnderLineSpan;
+import com.pcitc.richtext.sample.span.MyDeleteUnderlineSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,24 +27,30 @@ public class UnderLineSpanFunction extends BaseSpanFunction implements MyListPop
 
     public UnderLineSpanFunction(int iconResId, int titleResId) {
         super(iconResId, titleResId);
-        dataSource.add(new ListPopupWindowAdapter.Bean("添加", ""));
-        dataSource.add(new ListPopupWindowAdapter.Bean("移除", ""));
+        dataSourceMenuList.add(new ListPopupWindowAdapter.Bean("添加", ""));
+        dataSourceMenuList.add(new ListPopupWindowAdapter.Bean("移除", ""));
     }
 
-    private MyListPopupWindow listPopupWindow;
-    private List<ListPopupWindowAdapter.Bean> dataSource = new ArrayList<>();
-
     @Override
-    void onClick(View view) {
-        if (listPopupWindow == null) {
-            listPopupWindow = new MyListPopupWindow(view.getContext(), view, this);
-        }
-        listPopupWindow.setDataSource(dataSource);
-        listPopupWindow.show();
+    void onClick(View clickView, View richView, int startIndex, int endIndex) {
+        showMenuListPopupWindow(clickView, this);
     }
 
     @Override
     public void onItemClickListener(MyListPopupWindow parent, View view, int position) {
-
+        ListPopupWindowAdapter.Bean menuBean = dataSourceMenuList.get(position);
+        if (TextUtils.equals(menuBean.getKey(), "添加")) {
+            SpannableStringBuilder sb = Utils.checkSpannableStringBuilder(richView);
+            if (sb != null) {
+                Utils.optimizeSpan(sb, startIndex, endIndex, MyAddUnderLineSpan.class);
+                sb.setSpan(new MyAddUnderLineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            }
+        } else if (TextUtils.equals(menuBean.getKey(), "移除")) {
+            SpannableStringBuilder sb = Utils.checkSpannableStringBuilder(richView);
+            if (sb != null) {
+                Utils.optimizeSpan(sb, startIndex, endIndex, MyDeleteUnderlineSpan.class);
+                sb.setSpan(new MyAddUnderLineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            }
+        }
     }
 }
