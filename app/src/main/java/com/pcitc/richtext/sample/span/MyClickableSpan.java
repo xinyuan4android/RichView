@@ -28,6 +28,10 @@ public class MyClickableSpan extends ClickableSpan {
         this.clickable = clickable;
     }
 
+    public boolean isClickable() {
+        return clickable;
+    }
+
     @Override
     public void onClick(@NonNull View widget) {
         if (listener != null) {

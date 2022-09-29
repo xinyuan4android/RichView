@@ -49,7 +49,7 @@ public class UnderLineSpanFunction extends BaseSpanFunction implements MyListPop
             SpannableStringBuilder sb = Utils.checkSpannableStringBuilder(richView);
             if (sb != null) {
                 Utils.optimizeSpan(sb, startIndex, endIndex, MyDeleteUnderlineSpan.class);
-                sb.setSpan(new MyAddUnderLineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                sb.setSpan(new MyDeleteUnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
             }
         }
     }

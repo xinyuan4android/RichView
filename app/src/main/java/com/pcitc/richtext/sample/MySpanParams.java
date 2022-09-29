@@ -10,6 +10,7 @@ import com.pcitc.richtext.sample.span.MyBackgroundColorSpan;
 import com.pcitc.richtext.sample.span.MyClickableSpan;
 import com.pcitc.richtext.sample.span.MyDeleteUnderlineSpan;
 import com.pcitc.richtext.sample.span.MyForegroundColorSpan;
+import com.pcitc.richtext.sample.span.MyImageSpan;
 import com.pcitc.richtext.sample.span.MyStyleSpan;
 
 import java.util.ArrayList;
@@ -73,6 +74,11 @@ public class MySpanParams {
                     option.clickableListener);
             mSpans.add(clickableSpan);
         }
+        if (option.imageType != null) {
+            int resourceId = MyImageSpan.imageTypeMaps.get(option.imageType);
+            MyImageSpan imageSpan = new MyImageSpan(MyApp.getApp(), resourceId);
+            mSpans.add(imageSpan);
+        }
         if (option.isBold != null || option.isItalic != null) {
             int styleType;
             if (Boolean.TRUE.equals(option.isBold)
@@ -111,6 +117,11 @@ public class MySpanParams {
 
         public Builder textSize(int textSize) {
             options.textSize = textSize;
+            return this;
+        }
+
+        public Builder imageType(String imageType) {
+            options.imageType = imageType;
             return this;
         }
 

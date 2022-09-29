@@ -49,4 +49,8 @@ public class MySpanParamsOption {
      * 是否是斜体
      */
     public Boolean isItalic;
+    /**
+     * 图片类型
+     */
+    public String imageType;
 }

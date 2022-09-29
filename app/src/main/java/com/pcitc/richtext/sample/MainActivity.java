@@ -25,6 +25,7 @@ import com.pcitc.richtext.sample.function.ImageFunction;
 import com.pcitc.richtext.sample.function.StyleSpanFunction;
 import com.pcitc.richtext.sample.function.UnderLineSpanFunction;
 import com.pcitc.richtext.sample.span.MyClickableSpan;
+import com.pcitc.richtext.sample.span.MyImageSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,11 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
         tvShow = findViewById(R.id.tvShow);
         initRecyclerView();
         initData();
+        //响应点击事件
         editText.setMovementMethod(LinkMovementMethod.getInstance());
         tvShow.setMovementMethod(LinkMovementMethod.getInstance());
+        //方法重新设置文字背景为透明色。
+        tvShow.setHighlightColor(getResources().getColor(android.R.color.transparent));
         aboutRichTextView();
     }
 
@@ -61,7 +65,10 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
                 .addParams(new MySpanParams.Builder("18311112222")
                         .textSize(40)
                         .textColor(0xFF0000FF)
-                        .clickable(true, "18311112222", this)
+                        .clickable(true, "123213", this)
+                        .build())
+                .addParams(new MySpanParams.Builder(MyImageSpan.TYPE_IMAGE_NEW)
+                        .imageType(MyImageSpan.TYPE_IMAGE_NEW)
                         .build())
                 .into(tvShow);
     }

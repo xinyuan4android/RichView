@@ -5,6 +5,9 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.widget.TextView;
 
+import com.pcitc.richtext.sample.span.MyClickableSpan;
+import com.pcitc.richtext.sample.span.MyImageSpan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,19 @@ public class MyRichViewHelper {
             int end = sb.length();
             List<Object> objects = mySpanParams.getmSpans();
             for (Object object : objects) {
-                sb.setSpan(object, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                if (object instanceof MyClickableSpan) {
+                    MyClickableSpan clickableSpan = (MyClickableSpan) object;
+                    boolean clickable = clickableSpan.isClickable();
+                    Utils.optimizeSpan(sb, start, end, MyClickableSpan.class);
+                    if (clickable) {
+                        sb.setSpan(object, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                } else if (object instanceof MyImageSpan) {
+                    sb.setSpan(object, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } else {
+                    Utils.optimizeSpan(sb, start, end, object.getClass());
+                    sb.setSpan(object, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
             }
         }
         textView.setText(sb);

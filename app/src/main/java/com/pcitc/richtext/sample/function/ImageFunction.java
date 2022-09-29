@@ -40,6 +40,5 @@ public class ImageFunction extends BaseSpanFunction implements MyListPopupWindow
                 et.setSelection(startIndex + key.length());
             }
         }
-        parent.show();
     }
 }
