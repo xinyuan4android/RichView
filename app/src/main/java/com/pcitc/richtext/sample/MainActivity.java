@@ -21,6 +21,8 @@ import com.pcitc.richtext.sample.function.BackgroundColorFunction;
 import com.pcitc.richtext.sample.function.BaseSpanFunction;
 import com.pcitc.richtext.sample.function.ClickableFunction;
 import com.pcitc.richtext.sample.function.ForegroundColorFunction;
+import com.pcitc.richtext.sample.function.ImageFunction;
+import com.pcitc.richtext.sample.function.StyleSpanFunction;
 import com.pcitc.richtext.sample.function.UnderLineSpanFunction;
 import com.pcitc.richtext.sample.span.MyClickableSpan;
 
@@ -46,14 +48,32 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
         initData();
         editText.setMovementMethod(LinkMovementMethod.getInstance());
         tvShow.setMovementMethod(LinkMovementMethod.getInstance());
+        aboutRichTextView();
+    }
+
+    private void aboutRichTextView() {
+        MyRichViewHelper.with(this)
+                .addParams(new MySpanParams.Builder("hxy")
+                        .textSize(40)
+                        .textColor(0xFFFF00FF)
+                        .isBold(true)
+                        .build())
+                .addParams(new MySpanParams.Builder("18311112222")
+                        .textSize(40)
+                        .textColor(0xFF0000FF)
+                        .clickable(true, "18311112222", this)
+                        .build())
+                .into(tvShow);
     }
 
     private void initData() {
         dataSource.add(new UnderLineSpanFunction());
         dataSource.add(new AbsoluteSizeFunction());
+        dataSource.add(new StyleSpanFunction());
         dataSource.add(new ForegroundColorFunction());
         dataSource.add(new BackgroundColorFunction());
         dataSource.add(new ClickableFunction(this));
+        dataSource.add(new ImageFunction());
         adapter.notifyDataSetChanged();
     }
 
@@ -82,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements MyFunctionListAda
         int selectionEnd = editText.getSelectionEnd();
         dataSource.get(position).onFunctionClick(view, editText, selectionStart, selectionEnd);
         editText.setSelection(selectionEnd);
-        tvShow.setText(editText.getText());
     }
 
     @Override

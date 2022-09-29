@@ -55,10 +55,15 @@ public class MyListPopupWindow implements AdapterView.OnItemClickListener {
         listPopupWindow.show();
     }
 
+    public void dismiss() {
+        listPopupWindow.dismiss();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (itemClickListener != null) {
             itemClickListener.onItemClickListener(this, view, position);
+            dismiss();
         }
     }
 

@@ -13,8 +13,19 @@ public class MyClickableSpan extends ClickableSpan {
     private OnClickableListener listener;
 
     public MyClickableSpan(String clickString, OnClickableListener listener) {
+        this(clickString, true, listener);
+    }
+
+    private boolean clickable;
+
+    public MyClickableSpan(String clickString, boolean clickable, OnClickableListener listener) {
         this.listener = listener;
         this.clickString = clickString;
+        this.clickable = clickable;
+    }
+
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
     }
 
     @Override

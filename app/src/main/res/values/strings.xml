@@ -2,7 +2,9 @@
     <string name="app_name">RichText</string>
     <string name="function_menu_name_underLine">下划线</string>
     <string name="function_menu_name_textSize">字体大小</string>
+    <string name="function_menu_name_textStyle">字体Style</string>
     <string name="function_menu_name_textColor">字体颜色</string>
     <string name="function_menu_name_bgColor">背景颜色</string>
     <string name="function_menu_name_clickEvent">点击事件</string>
+    <string name="function_menu_name_image">添加图片</string>
 </resources>
